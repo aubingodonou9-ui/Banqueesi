@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> CIBC — Démonstration </title>
+<style>
+:root{--navy:#071a2f;--blue:#155eef;--teal:#00a88f;--bg:#f5f7fa;--muted:#667085;--line:#e4e7ec;--surface:#ffffff;--text:#101828}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit}button{border:0;border-radius:12px;padding:14px 18px;background:var(--navy);color:#fff;font-weight:700;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}button:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(7,26,47,.16)}
+button.secondary{background:#fff;color:var(--navy);border:1px solid #d9dee7;box-shadow:0 2px 8px rgba(16,24,40,.04)}.screen{display:none;min-height:100vh}.screen.active{display:block}
+.brand{display:flex;align-items:center;gap:10px;font-size:18px;letter-spacing:-.02em}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--navy),var(--blue) 62%,var(--teal));color:#fff;display:grid;place-items:center;font-weight:900}
+#home{background:radial-gradient(circle at 85% 8%,rgba(0,168,143,.13),transparent 28%),radial-gradient(circle at 5% 75%,rgba(21,94,239,.10),transparent 30%),linear-gradient(180deg,#fff,#f4f7fb)}
+.home-head{padding:20px 6%;display:flex;justify-content:space-between;align-items:center}.hero{max-width:900px;margin:auto;padding:75px 24px}.badge{display:inline-block;background:#e8f4f2;color:#13776f;padding:8px 13px;border-radius:30px;font-size:11px;font-weight:800;letter-spacing:.08em}
+.hero h1{font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(50px,10vw,88px);font-weight:750;letter-spacing:-.055em;line-height:.95;margin:25px 0}.hero em{color:var(--blue);font-style:normal}.hero p{max-width:620px;color:#5f6c78;font-size:18px;line-height:1.65}.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px}.actions button{min-height:52px}.actions .secondary{background:#fff}
+ 
+.auth{min-height:100vh;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at 10% 10%,rgba(0,168,143,.10),transparent 28%),radial-gradient(circle at 90% 90%,rgba(21,94,239,.10),transparent 32%),#f7f9fc}.authbox{width:min(100%,470px);background:rgba(255,255,255,.97);padding:38px;border:1px solid #e7edf2;border-radius:28px;box-shadow:0 28px 80px rgba(7,26,47,.12)}.auth-brand{display:flex;align-items:center;gap:11px;font-size:18px;font-weight:700;color:var(--navy);margin:0 0 28px}.authbox h1{margin:0 0 9px;font-size:32px;letter-spacing:-.045em;font-weight:760}.authbox>p{color:var(--muted);margin:0 0 24px;line-height:1.55}.authbox form{display:grid;gap:14px}.field label{display:block;font-size:12px;font-weight:800;color:#425466;margin:0 0 7px}.authbox input,.modal input,.modal select{width:100%;padding:14px 15px;border:1px solid #d7e0e7;border-radius:12px;margin:0;background:#fbfcfd;outline:none;transition:.2s}.authbox input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(31,95,155,.09);background:#fff}.authbox button[type=submit]{width:100%;margin-top:5px;height:50px;border-radius:12px}.auth-divider{display:flex;align-items:center;gap:10px;margin:23px 0;color:#9aa7b3;font-size:12px}.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#e6ebef;flex:1}.auth-switch{text-align:center;margin:20px 0 0!important;font-size:13px!important}.back{background:transparent;color:#526477;padding:0;margin-bottom:26px;font-size:13px}.link{background:transparent;color:var(--blue);padding:0;font-weight:800}.hint{display:block;color:var(--muted);font-size:11px;margin-top:16px;text-align:center}
+.app{min-height:100vh;display:flex}.sidebar{width:250px;background:#fff;padding:26px 18px;display:flex;flex-direction:column;border-right:1px solid #e5eaf0}.menu{display:grid;gap:7px;margin-top:42px}.menu button{background:transparent;color:#687582;text-align:left}.menu button.active{background:#edf5f7;color:var(--blue)}.logout{margin-top:auto!important;background:#fff0f0!important;color:#b33!important}
+.content{flex:1;width:100%;max-width:1200px;margin:auto;padding:34px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.eyebrow{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.12em}.topbar h1{margin:5px 0}.avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;display:grid;place-items:center;font-weight:bold}
+.balance{background:linear-gradient(120deg,#071a2f 0%,#123f72 58%,#008f7b 100%);color:#fff;border-radius:27px;padding:30px;display:flex;justify-content:space-between;align-items:flex-end}.balance h2{font-size:45px;margin:12px 0}.balance p{color:#c8d8e3;margin:0}.balance button{background:#fff;color:#123b64}.grid{display:grid;grid-template-columns:1.55fr .8fr;gap:20px;margin-top:20px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:0 8px 28px rgba(16,24,40,.045)}.panelhead{display:flex;justify-content:space-between;align-items:center}.panelhead h2,.panelhead h3{margin:0}.textbtn{background:transparent;color:var(--blue);padding:5px}
+.tx{display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid #edf1f4}.tx:last-child{border:0}.txicon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center}.inbox{background:#e7f6f0;color:#198363}.outbox{background:#fff1ed;color:#bb5a43}.txinfo{flex:1}.txinfo strong,.txinfo small{display:block}.txinfo small{color:var(--muted);font-size:12px;margin-top:4px}.in{color:#198363}.out{color:#bb5a43}
+.mini-card,.virtual-card{background:linear-gradient(135deg,#071a2f,#155eef 60%,#00a88f);color:#fff;border-radius:26px;padding:27px;display:flex;flex-direction:column}.mini-card{min-height:225px}.mini-card h3{margin-top:auto}.cardpage{display:grid;grid-template-columns:1fr 1fr;gap:20px}.virtual-card{aspect-ratio:1.58}.chip{width:55px;height:38px;border-radius:8px;background:#d8b76e;margin:35px 0}.virtual-card footer{margin-top:auto;font-size:11px;letter-spacing:.08em}
+.notice{background:#e7f5ef;color:#166050;padding:13px;border-radius:13px;margin-bottom:15px}.modal-wrap{display:none;position:fixed;inset:0;background:#071521aa;z-index:30;place-items:center;padding:20px}.modal-wrap.show{display:grid}.modal{width:min(100%,440px);background:#fff;border-radius:26px;padding:27px}.modal h2{margin-top:0}.modal .row{display:flex;gap:10px;margin-top:18px}.transfer-note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:14px}
+.progress-box{text-align:center}.progress-box h2{margin-top:0}.progress-number{font-size:44px;font-weight:900;color:var(--blue);margin:25px 0}.progress-track{height:14px;background:#e7edf1;border-radius:99px;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:99px;transition:width .18s ease}.loading-dots{margin-top:18px;color:var(--muted)}.warning{background:#fff7e5;color:#8a6200;padding:16px;border-radius:14px;line-height:1.55;margin-top:18px}.warning strong{display:block;font-size:17px;margin-bottom:5px}.final-actions{margin-top:18px}
+.profile{max-width:620px}.profile label{display:block;font-weight:700;margin:14px 0}.profile input{width:100%;padding:14px;border:1px solid #dce4ea;border-radius:13px;margin-top:7px}
+@media(max-width:760px){.actions{grid-template-columns:1fr}.authbox{padding:28px 22px}.authbox h1{font-size:28px}.home-head{padding:18px}.hero{padding:55px 22px}.actions{flex-direction:column}.app{display:block}.sidebar{position:fixed;bottom:0;left:0;width:100%;height:72px;padding:8px;z-index:10;border-top:1px solid #e5eaf0;border-right:0}.sidebar>.brand,.logout{display:none!important}.menu{margin:0;display:flex;justify-content:space-around}.menu button{font-size:10px;padding:8px;display:grid;place-items:center}.content{padding:24px 16px 90px}.balance{flex-direction:column;align-items:flex-start;gap:18px}.balance h2{font-size:34px}.grid,.cardpage{grid-template-columns:1fr}.hero h1{font-size:58px}.tx b{font-size:12px}.modal{padding:23px}}
+</style>
+</head>
+<body>
+
+<section id="home" class="screen active">
+<header class="home-head"><div class="brand"><div class="logo">N</div>CIBC</div><button class="secondary" onclick="show('login')">Connexion</button></header>
+<main class="hero"><div class="badge">● BANQUE </div><h1>Votre avenir,<br><em>notre confiance.</em></h1><p>Créez votre espace personnel et découvrez une expérience bancaire numérique moderne. </p><div class="actions"><button onclick="show('register')">Créer un compte</button><button class="secondary" onclick="show('login')">Se connecter</button></div></main>
+</section>
+
+<section id="login" class="screen"><div class="auth"><div class="authbox"><button class="back" onclick="show('home')">← Retour à l'accueil</button><div class="auth-brand"><div class="logo">N</div>CIBC</div><h1>Bon retour.</h1><p>Connectez-vous à votre espace personnel en toute simplicité.</p><form onsubmit="login(event)"><div class="field"><label for="loginName">Nom</label><input id="loginName" placeholder="Votre nom (facultatif)"></div><div class="field"><label for="loginEmail">Adresse e-mail</label><input id="loginEmail" type="email" placeholder="vous@exemple.com" required></div><div class="field"><label for="loginPassword">Mot de passe</label><input id="loginPassword" type="password" placeholder="Votre mot de passe" required></div><button type="submit">Se connecter</button></form><div class="auth-divider">ou</div><p class="auth-switch">Vous n'avez pas encore de compte ? <button class="link" onclick="show('register')">Créer un compte</button></p><small class="hint">Interface de démonstration — données locales et fictives.</small></div></div></section>
+
+<section id="register" class="screen"><div class="auth"><div class="authbox"><button class="back" onclick="show('home')">← Retour à l'accueil</button><div class="auth-brand"><div class="logo">N</div>CIBC</div><h1>Créer votre compte.</h1><p>Quelques informations suffisent pour commencer votre expérience bancaire.</p><form onsubmit="register(event)"><div class="field"><label for="regName">Nom complet</label><input id="regName" placeholder="Prénom et nom" required></div><div class="field"><label for="regEmail">Adresse e-mail</label><input id="regEmail" type="email" placeholder="vous@exemple.com" required></div><div class="field"><label for="regPassword">Mot de passe</label><input id="regPassword" type="password" placeholder="Choisissez un mot de passe" required></div><button type="submit">Créer mon compte</button></form><p class="auth-switch">Vous avez déjà un compte ? <button class="link" onclick="show('login')">Se connecter</button></p><small class="hint">Interface de démonstration — données locales et fictives.</small></div></div></section>
+
+<section id="app" class="screen"><div class="app">
+<aside class="sidebar"><div class="brand"><div class="logo">N</div>CIBC</div><div class="menu">
+<button class="active" onclick="view('dashboard',this)">⌂<span>Accueil</span></button>
+<button onclick="view('transactions',this)">↕<span>Transactions</span></button>
+<button onclick="view('transfer',this)">→<span>Virement</span></button>
+<button onclick="view('card',this)">▣<span>Carte</span></button>
+<button onclick="view('profile',this)">⚙<span>Profil</span></button>
+</div><button class="logout" onclick="logout()">Déconnexion</button></aside>
+<main class="content">
+<div class="topbar"><div><span class="eyebrow" id="role">BONJOUR</span><h1 id="welcome">Client CIBC 👋</h1></div><div class="avatar" id="avatar">N</div></div>
+<div id="message"></div>
+
+<div id="dashboardView" class="view">
+<section class="balance"><div><span>Solde disponible • </span><h2 id="balance">72 000 $</h2><p></p></div><button onclick="view('transfer')">Faire un virement vers votre compte →</button></section>
+<section class="grid"><div class="panel"><div class="panelhead"><h3>Transactions de démonstration</h3><button class="textbtn" onclick="view('transactions')">Voir tout</button></div><div id="recentTx"></div></div><div class="mini-card"><span>CARTE VIRTUELLE</span><h3>CIBC •••• 2026</h3><strong></strong><small> UTILISABLE POUR DES PAIEMENTS</small></div></section>
+</div>
+
+<div id="transactionsView" class="view" style="display:none"><section class="panel"><div class="panelhead"><h2>Historique </h2></div><div id="allTx"></div></section></div>
+
+<div id="transferView" class="view" style="display:none"><section class="panel" style="max-width:680px"><h2>Faire un virement</h2><p style="color:#728092"</p><form onsubmit="startTransfer(event)"><input id="recipient" placeholder="Nom du bénéficiaire" required><input id="iban" placeholder="IBAN ou numéro de compte " required><input id="amount" type="number" min="1" max="72000" placeholder="Montant en $" required><button style="margin-top:16px">Continuer le virement </button></form><p class="transfer-note"> </p></section></div>
+
+<div id="cardView" class="view" style="display:none"><section class="cardpage"><div class="virtual-card"><span>CIBC </span><div class="chip"></div><strong>DEMO •••• 2026</strong><footer>CARTE </footer></div><div class="panel"><h2>Carte virtuelle</h2><p> </p></div></section></div>
+
+<div id="profileView" class="view" style="display:none"><section class="panel profile"><h2>Profil</h2><label>Nom<input id="profileName"></label><label>E-mail<input id="profileEmail" readonly></label><button onclick="saveProfile()">Enregistrer</button><button onclick="logout()" style="margin-top:12px;width:100%;background:#fff0f0;color:#b33;border:1px solid #f2cccc">🚪 Se déconnecter</button></section></div>
+<div id="adminView" class="view" style="display:none"><section class="panel"><h2>Administration — Démonstration</h2><p>Les comptes, soldes et opérations affichés sont fictifs et locaux à cet appareil.</p></section></div>
+</main></div></section>
+
+<div id="progressModal" class="modal-wrap"><div class="modal progress-box">
+<h2>Virement en cours</h2><p id="progressText">Initialisation ...</p>
+<div class="progress-number" id="progressNumber">0%</div>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+<div class="loading-dots" id="loadingDots">Traitement...</div>
+<div id="finalMessage" style="display:none">
+<div class="warning"><strong>Désolé, ce compte est bloqué.</strong> Le compte bloqué nécessite 1 500 $ pour la démonstration.</div>
+<div class="final-actions"><button onclick="closeProgress()">Retour à mon compte</button></div>
+</div>
+</div></div>
+
+<script>
+const demoTx=[{label:"Bienvenue sur CIBC",amount:72000,type:"in",date:"Aujourd'hui",id:1},{label:"Simulation de carte virtuelle",amount:0,type:"out",date:"Aujourd'hui",id:2}];
+let user=JSON.parse(localStorage.getItem("bourso_v2_user")||"null");
+let tx=JSON.parse(localStorage.getItem("bourso_v2_tx")||"null")||demoTx;
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active")}
+function save(){localStorage.setItem("bourso_v2_user",JSON.stringify(user));localStorage.setItem("bourso_v2_tx",JSON.stringify(tx))}
+function login(e){e.preventDefault();const email=loginEmail.value.trim(),pass=loginPassword.value;if(email==="admin@boursobank.demo"&&pass!=="bourso-admin"){alert("Mot de passe administrateur incorrect.");return}user={name:(email==="admin@boursobank.demo"?"Administrateur CIBC":"Client CIBC"),email};save();start()}
+function register(e){e.preventDefault();user={name:regName.value.trim(),email:regEmail.value.trim()};tx=demoTx.map(x=>({...x}));save();start()}
+function start(){show("app");welcome.textContent=user.name+" 👋";avatar.textContent=user.name.charAt(0).toUpperCase();profileName.value=user.name;profileEmail.value=user.email;role.textContent=user.email==="admin@boursobank.demo"?"ESPACE ADMINISTRATEUR":"BONJOUR";render();if(user.email==="admin@boursobank.demo")view("admin")}
+function logout(){user=null;localStorage.removeItem("bourso_v2_user");show("home")}
+function render(){recentTx.innerHTML=tx.slice(0,4).map(txHtml).join("");allTx.innerHTML=tx.map(txHtml).join("");balance.textContent="72 000 $"}
+function txHtml(t){return `<div class="tx"><div class="txicon ${t.type==="in"?"inbox":"outbox"}">${t.type==="in"?"↓":"↑"}</div><div class="txinfo"><strong>${safe(t.label)}</strong><small>${t.date}</small></div><b class="${t.type}">${t.type==="in"?"+":"-"} ${Number(t.amount).toLocaleString("fr-FR")} $</b></div>`}
+function safe(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function view(name,btn){document.querySelectorAll(".view").forEach(v=>v.style.display="none");document.getElementById(name+"View").style.display="block";if(btn){document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));btn.classList.add("active")}}
+function saveProfile(){user.name=profileName.value.trim()||user.name;save();welcome.textContent=user.name+" 👋";avatar.textContent=user.name.charAt(0).toUpperCase();message.innerHTML='<div class="notice">Profil enregistré localement.</div>';setTimeout(()=>message.innerHTML="",2500)}
+function startTransfer(e){e.preventDefault();progressModal.classList.add("show");progressFill.style.width="0%";progressNumber.textContent="0%";progressText.textContent="Connexion au système de démonstration...";loadingDots.style.display="block";finalMessage.style.display="none";let p=0;const timer=setInterval(()=>{p+=1;progressFill.style.width=p+"%";progressNumber.textContent=p+"%";if(p===12)progressText.textContent="Vérification de l'opération fictive...";if(p===22)progressText.textContent="Simulation du traitement en cours...";if(p>=70){clearInterval(timer);progressText.textContent="Simulation interrompue à 70 %";loadingDots.style.display="none";setTimeout(()=>finalMessage.style.display="block",650)}},55)}
+function closeProgress(){progressModal.classList.remove("show");view("dashboard");document.querySelectorAll(".menu button").forEach(b=>b.classList.remove("active"));document.querySelector(".menu button").classList.add("active")}
+if(user)start();
+</script>
+</body>
+</html>
